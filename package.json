@@ -26,18 +26,24 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-skia-shadow-example",
-    "test": "jest",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli lib",
-    "prepare": "bob build",
-    "release": "release-it"
+    "example": "yarn workspace react-native-skia-shadow-example",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "lint:fix": "eslint --fix \"**/*.{js,ts,tsx}\"",
+    "prettier": "prettier --check . --ignore-unknown",
+    "prettier:fix": "prettier --write . --ignore-unknown",
+    "prepare": "bob build && husky install",
+    "release": "release-it",
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "expo",
+    "shadow",
+    "skia"
   ],
   "repository": "https://github.com/chsdwn/react-native-skia-shadow",
   "author": "chsdwn <hulusikafalier@chsdwn.dev> (https://chsdwn.dev)",
@@ -50,10 +56,12 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^17.0.2",
+    "@commitlint/cli": "^17.7.2",
+    "@commitlint/config-conventional": "^17.7.0",
     "@evilmartians/lefthook": "^1.5.0",
     "@react-native/eslint-config": "^0.72.2",
     "@release-it/conventional-changelog": "^5.0.0",
+    "@shopify/react-native-skia": "^0.1.212",
     "@types/jest": "^28.1.2",
     "@types/react": "~17.0.21",
     "@types/react-native": "0.70.0",
@@ -62,7 +70,9 @@
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.0",
     "jest": "^28.1.1",
+    "lint-staged": "^14.0.1",
     "prettier": "^2.0.5",
     "react": "18.2.0",
     "react-native": "0.72.5",
@@ -74,6 +84,7 @@
     "@types/react": "17.0.21"
   },
   "peerDependencies": {
+    "@shopify/react-native-skia": "*",
     "react": "*",
     "react-native": "*"
   },
@@ -83,13 +94,6 @@
   "packageManager": "yarn@3.6.1",
   "engines": {
     "node": ">= 18.0.0"
-  },
-  "jest": {
-    "preset": "react-native",
-    "modulePathIgnorePatterns": [
-      "<rootDir>/example/node_modules",
-      "<rootDir>/lib/"
-    ]
   },
   "commitlint": {
     "extends": [
@@ -112,36 +116,6 @@
         "preset": "angular"
       }
     }
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "@react-native",
-      "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "quoteProps": "consistent",
-          "singleQuote": true,
-          "tabWidth": 2,
-          "trailingComma": "es5",
-          "useTabs": false
-        }
-      ]
-    }
-  },
-  "eslintIgnore": [
-    "node_modules/",
-    "lib/"
-  ],
-  "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
   },
   "react-native-builder-bob": {
     "source": "src",

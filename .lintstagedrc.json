@@ -1,0 +1,4 @@
+{
+  "**/*.{json,js,ts,jsx,tsx,md}": ["npm run prettier:fix"],
+  "**/*.{js,jsx,ts,tsx}": ["npm run lint:fix"]
+}
