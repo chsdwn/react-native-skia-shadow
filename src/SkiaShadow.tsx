@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { Dimensions, LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import { Canvas, RoundedRect, Shadow } from '@shopify/react-native-skia';
-
-const { height, width } = Dimensions.get('window');
 
 type Props = {
   blur: number;
@@ -18,18 +16,45 @@ export const SkiaShadow = (props: Props) => {
   const [shadowHeight, setShadowHeight] = useState(0);
   const [shadowWidth, setShadowWidth] = useState(0);
 
+  const blurRadius = blur * 3;
+
+  const top = useMemo(() => {
+    return blurRadius + (dy < 0 ? -dy : 0);
+  }, [blurRadius, dy]);
+  const bottom = useMemo(() => {
+    return blurRadius + (dy > 0 ? dy : 0);
+  }, [blurRadius, dy]);
+  const left = useMemo(() => {
+    return blurRadius + (dx < 0 ? -dx : 0);
+  }, [blurRadius, dx]);
+  const right = useMemo(() => {
+    return blurRadius + (dx > 0 ? dx : 0);
+  }, [blurRadius, dx]);
+
+  const canvasStyle = useMemo(() => {
+    return StyleSheet.flatten([
+      styles.canvas,
+      {
+        height: shadowHeight + top + bottom,
+        width: shadowWidth + left + right,
+        top: -top,
+        left: -left,
+      },
+    ]);
+  }, [top, bottom, left, right, shadowHeight, shadowWidth]);
+
   const handleLayout = (event: LayoutChangeEvent) => {
-    const { layout } = event.nativeEvent;
-    setShadowHeight(layout.height);
-    setShadowWidth(layout.width);
+    const { height, width } = event.nativeEvent.layout;
+    setShadowHeight(height);
+    setShadowWidth(width);
   };
 
   return (
     <View onLayout={handleLayout}>
-      <Canvas style={styles.canvas}>
+      <Canvas style={canvasStyle}>
         <RoundedRect
-          x={width}
-          y={height}
+          x={right}
+          y={top}
           height={shadowHeight}
           width={shadowWidth}
           r={borderRadius}
@@ -45,9 +70,5 @@ export const SkiaShadow = (props: Props) => {
 const styles = StyleSheet.create({
   canvas: {
     position: 'absolute',
-    height: height * 2,
-    width: width * 2,
-    top: -height,
-    left: -width,
   },
 });
