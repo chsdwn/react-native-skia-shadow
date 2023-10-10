@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
-import { Canvas, RoundedRect, Shadow } from '@shopify/react-native-skia';
+import { Canvas, Color, RoundedRect, Shadow } from '@shopify/react-native-skia';
 
 type Props = {
   blur: number;
   dx: number;
   dy: number;
-  color?: string;
+  color?: Color;
   borderRadius?: number;
   children: React.ReactNode;
 };
@@ -28,6 +28,7 @@ export const SkiaShadow = (props: Props) => {
     return blurRadius + (dx < 0 ? -dx : 0);
   }, [blurRadius, dx]);
   const right = useMemo(() => {
+    // return blurRadius + (dx > 0 ? dx : 0);
     return blurRadius + (dx > 0 ? dx : 0);
   }, [blurRadius, dx]);
 
@@ -53,11 +54,12 @@ export const SkiaShadow = (props: Props) => {
     <View onLayout={handleLayout}>
       <Canvas style={canvasStyle}>
         <RoundedRect
-          x={right}
+          x={left}
           y={top}
           height={shadowHeight}
           width={shadowWidth}
           r={borderRadius}
+          color={color}
         >
           <Shadow dx={dx} dy={dy} blur={blur} color={color} />
         </RoundedRect>
