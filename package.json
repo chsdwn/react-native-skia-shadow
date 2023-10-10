@@ -34,7 +34,7 @@
     "prettier:fix": "prettier --write . --ignore-unknown",
     "prepare": "bob build && husky install",
     "release": "release-it",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [
