@@ -2,7 +2,9 @@ import React, { useMemo, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import { Canvas, Color, RoundedRect, Shadow } from '@shopify/react-native-skia';
 
-type Props = {
+import { useShadowDimensions } from './hooks';
+
+export type SkiaShadowProps = {
   blur: number;
   dx: number;
   dy: number;
@@ -10,27 +12,13 @@ type Props = {
   borderRadius?: number;
   children: React.ReactNode;
 };
-export const SkiaShadow = (props: Props) => {
+export const SkiaShadow = (props: SkiaShadowProps) => {
   const { blur, dx, dy, borderRadius = 0, color = 'black', children } = props;
+
+  const { top, bottom, left, right } = useShadowDimensions({ blur, dx, dy });
 
   const [shadowHeight, setShadowHeight] = useState(0);
   const [shadowWidth, setShadowWidth] = useState(0);
-
-  const blurRadius = blur * 3;
-
-  const top = useMemo(() => {
-    return blurRadius + (dy < 0 ? -dy : 0);
-  }, [blurRadius, dy]);
-  const bottom = useMemo(() => {
-    return blurRadius + (dy > 0 ? dy : 0);
-  }, [blurRadius, dy]);
-  const left = useMemo(() => {
-    return blurRadius + (dx < 0 ? -dx : 0);
-  }, [blurRadius, dx]);
-  const right = useMemo(() => {
-    // return blurRadius + (dx > 0 ? dx : 0);
-    return blurRadius + (dx > 0 ? dx : 0);
-  }, [blurRadius, dx]);
 
   const canvasStyle = useMemo(() => {
     return StyleSheet.flatten([
