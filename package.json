@@ -1,6 +1,6 @@
 {
   "name": "react-native-skia-shadow",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Android and iOS shadows with React Native Skia.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
