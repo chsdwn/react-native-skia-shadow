@@ -61,7 +61,7 @@
     "@evilmartians/lefthook": "^1.5.0",
     "@react-native/eslint-config": "^0.72.2",
     "@release-it/conventional-changelog": "^5.0.0",
-    "@shopify/react-native-skia": "^0.1.212",
+    "@shopify/react-native-skia": "^0.1.196",
     "@types/jest": "^28.1.2",
     "@types/react": "~17.0.21",
     "@types/react-native": "0.70.0",
@@ -84,7 +84,7 @@
     "@types/react": "17.0.21"
   },
   "peerDependencies": {
-    "@shopify/react-native-skia": "*",
+    "@shopify/react-native-skia": ">= 0.1.196",
     "react": "*",
     "react-native": "*"
   },
@@ -94,11 +94,6 @@
   "packageManager": "yarn@3.6.1",
   "engines": {
     "node": ">= 18.0.0"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
   },
   "release-it": {
     "git": {
