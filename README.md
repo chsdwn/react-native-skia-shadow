@@ -36,21 +36,21 @@
 
 <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
 
-  <div>
+<div>
 
 ### iOS (iPhone 15 Pro Max)
 
-  <img src="./assets/screenshots/ios.png" alt="React Native Skia Shadow iOS Screenshot" style="width: 400px;" />
+<img src="./assets/screenshots/ios.png" alt="React Native Skia Shadow iOS Screenshot" width="300" />
 
-  </div>
+</div>
 
-  <div>
+<div>
 
 ### Android (Nexus 5)
 
-  <img src="./assets/screenshots/android.png" alt="React Native Skia Shadow Android Screenshot" style="width: 400px;" />
+<img src="./assets/screenshots/android.png" alt="React Native Skia Shadow Android Screenshot" width="300" />
 
-  </div>
+</div>
 
 </div>
 
