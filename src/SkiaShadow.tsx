@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
-import { Canvas, Color, RoundedRect, Shadow } from '@shopify/react-native-skia';
+import { Canvas, Color, Path, Shadow } from '@shopify/react-native-skia';
 
-import { useShadowDimensions } from './hooks';
+import { usePath, useShadowDimensions } from './hooks';
 
 export type SkiaShadowProps = {
   blur: number;
@@ -10,15 +10,33 @@ export type SkiaShadowProps = {
   dy: number;
   color?: Color;
   borderRadius?: number;
+  borderTopLeftRadius?: number;
+  borderTopRightRadius?: number;
+  borderBottomLeftRadius?: number;
+  borderBottomRightRadius?: number;
   children: React.ReactNode;
 };
 export const SkiaShadow = (props: SkiaShadowProps) => {
   const { blur, dx, dy, borderRadius = 0, color = 'black', children } = props;
-
-  const { top, bottom, left, right } = useShadowDimensions({ blur, dx, dy });
+  const { borderTopLeftRadius = borderRadius } = props;
+  const { borderTopRightRadius = borderRadius } = props;
+  const { borderBottomLeftRadius = borderRadius } = props;
+  const { borderBottomRightRadius = borderRadius } = props;
 
   const [shadowHeight, setShadowHeight] = useState(0);
   const [shadowWidth, setShadowWidth] = useState(0);
+
+  const { top, bottom, left, right } = useShadowDimensions({ blur, dx, dy });
+  const path = usePath({
+    top,
+    left,
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
+    shadowWidth,
+    shadowHeight,
+  });
 
   const canvasStyle = useMemo(() => {
     return StyleSheet.flatten([
@@ -41,16 +59,9 @@ export const SkiaShadow = (props: SkiaShadowProps) => {
   return (
     <View onLayout={handleLayout}>
       <Canvas style={canvasStyle}>
-        <RoundedRect
-          x={left}
-          y={top}
-          height={shadowHeight}
-          width={shadowWidth}
-          r={borderRadius}
-          color={color}
-        >
-          <Shadow dx={dx} dy={dy} blur={blur} color={color} />
-        </RoundedRect>
+        <Path path={path} color={color}>
+          <Shadow dx={dx} dy={dy} blur={blur} color={color} shadowOnly />
+        </Path>
       </Canvas>
       {children}
     </View>
