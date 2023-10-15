@@ -21,7 +21,13 @@ export const Components = () => {
         </SkiaShadow>
       </SkiaShadow>
 
-      <SkiaShadow blur={3} dx={0} dy={10}>
+      <SkiaShadow
+        blur={3}
+        dx={10}
+        dy={10}
+        borderTopLeftRadius={8}
+        borderBottomRightRadius={32}
+      >
         <Button title="Skia Shadow" />
       </SkiaShadow>
 
