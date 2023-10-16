@@ -100,13 +100,17 @@ Wrap the component you want to add a shadow inside a `SkiaShadow` component.
 
 ### Props
 
-| Prop         | Type     |   Default |
-| ------------ | -------- | --------: |
-| blur         | `number` |           |
-| dx           | `number` |           |
-| dy           | `number` |           |
-| color        | `Color`  | `'black'` |
-| borderRadius | `number` |       `0` |
+| Prop                    | Type     |        Default |
+| ----------------------- | -------- | -------------: |
+| blur                    | `number` |                |
+| dx                      | `number` |                |
+| dy                      | `number` |                |
+| color                   | `Color`  |      `'black'` |
+| borderRadius            | `number` |            `0` |
+| borderTopLeftRadius     | `number` | `borderRadius` |
+| borderTopRightRadius    | `number` | `borderRadius` |
+| borderBottomLeftRadius  | `number` | `borderRadius` |
+| borderBottomRightRadius | `number` | `borderRadius` |
 
 ### Example
 
