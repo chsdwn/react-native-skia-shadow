@@ -32,9 +32,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 16,
   },
-  image: {
-    width: 36,
-    height: 36,
-    borderRadius: 9999,
-  },
 });
