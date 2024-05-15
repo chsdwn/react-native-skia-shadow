@@ -8,8 +8,8 @@
     "ios": "expo start --ios"
   },
   "dependencies": {
-    "@react-navigation/native": "^6.1.8",
-    "@react-navigation/native-stack": "^6.9.14",
+    "@react-navigation/native": "^6.1.17",
+    "@react-navigation/native-stack": "^6.9.26",
     "@shopify/react-native-skia": "1.2.3",
     "expo": "~51.0.6",
     "expo-status-bar": "~1.12.1",
@@ -21,10 +21,10 @@
     "react-native-web": "~0.19.10"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.0",
+    "@babel/core": "^7.24.5",
     "@expo/webpack-config": "~19.0.1",
-    "babel-loader": "^8.1.0",
-    "babel-plugin-module-resolver": "^5.0.0"
+    "babel-loader": "^8.3.0",
+    "babel-plugin-module-resolver": "^5.0.2"
   },
   "private": true
 }
