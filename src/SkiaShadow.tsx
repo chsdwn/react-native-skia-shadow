@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import { I18nManager, LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import { Canvas, Color, Path, Shadow } from '@shopify/react-native-skia';
 
 import { usePath, useShadowDimensions } from './hooks';
@@ -16,12 +16,17 @@ export type SkiaShadowProps = {
   borderBottomRightRadius?: number;
   children: React.ReactNode;
 };
+
+const isRTL = I18nManager.isRTL;
+
 export const SkiaShadow = (props: SkiaShadowProps) => {
-  const { blur, dx, dy, borderRadius = 0, color = 'black', children } = props;
+  const { blur, dy, borderRadius = 0, color = 'black', children } = props;
   const { borderTopLeftRadius = borderRadius } = props;
   const { borderTopRightRadius = borderRadius } = props;
   const { borderBottomLeftRadius = borderRadius } = props;
   const { borderBottomRightRadius = borderRadius } = props;
+
+  const dx = props.dx * (isRTL ? -1 : 1);
 
   const [shadowHeight, setShadowHeight] = useState(0);
   const [shadowWidth, setShadowWidth] = useState(0);
@@ -30,10 +35,14 @@ export const SkiaShadow = (props: SkiaShadowProps) => {
   const path = usePath({
     top,
     left,
-    borderTopLeftRadius,
-    borderTopRightRadius,
-    borderBottomLeftRadius,
-    borderBottomRightRadius,
+    borderTopLeftRadius: isRTL ? borderTopRightRadius : borderTopLeftRadius,
+    borderTopRightRadius: isRTL ? borderTopLeftRadius : borderTopRightRadius,
+    borderBottomLeftRadius: isRTL
+      ? borderBottomRightRadius
+      : borderBottomLeftRadius,
+    borderBottomRightRadius: isRTL
+      ? borderBottomLeftRadius
+      : borderBottomRightRadius,
     shadowWidth,
     shadowHeight,
   });
@@ -45,7 +54,7 @@ export const SkiaShadow = (props: SkiaShadowProps) => {
         height: shadowHeight + top + bottom,
         width: shadowWidth + left + right,
         top: -top,
-        left: -left,
+        left: isRTL ? -right : -left,
       },
     ]);
   }, [top, bottom, left, right, shadowHeight, shadowWidth]);
